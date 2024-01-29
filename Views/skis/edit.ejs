@@ -1,0 +1,61 @@
+
+<% layout('layouts/boilerplate') %>
+
+    <div class="row">
+        <h1 class="text-center">Edit Mountain</h1>
+        <div class="col-6 offset-3">
+         <form action="/skis/<%=ski._id%>?_method=PUT" method="POST" nonvalidate class="validated-form" enctype="multipart/form-data">
+             <div class="mb-3">
+                 <label class="form-label" for="title">Title</label>
+                 <input class="form-control" type="text" id="title" name="ski[title]" value="<%=ski.title%>" required>
+             </div>
+             <div class="mb-3">
+                 <label class="form-label" for="location">Location</label>
+                 <input class="form-control" type="text" id="location" name="ski[location]" value="<%=ski.location%>" required>
+             </div>
+             <div class="mb-3">
+             <label class="form-label" for="price">Mountain Price</label>
+             <div class="input-group mb-3">
+                 <div class="input-group-prepend">
+                   <span class="input-group-text" id="price-label">$</span>
+                 </div>
+                 <input type="text" class="form-control" id="price" placeholder="0" aria-label="Amount (to the nearest dollar)" aria-describedby="price-label" name="ski[price]" value="<%=ski.price%>" required>
+                 <div class="input-group-append">
+                   <span class="input-group-text">0.00</span>
+                 </div>
+             </div>
+               </div>
+               <div class="mb-3">
+                <label class="form-label" for="dscription">Description</label>
+                <textarea class="form-control" type="text" id="description" name="ski[description]" required><%=ski.description%></textarea>
+            </div>
+
+               <div class="mb-3">
+                <div class="form-file custom-file">
+                    <input type="file" class="form-file-input" id="image" name="image" multiple>
+                    <label class="form-file-label" for="image">
+                        <span class="form-file-text custom-file-label">Add more image(s)...</span>
+                        <span class="form-file-button">Browse</span>
+                    </label>
+                </div>
+            </div>
+            <div class="mb-3">
+                <% ski.images.forEach(function(img, i) {  %>
+                <img src=" <%=img.thumbnail %>" class="img-thumbnail" alt="">
+                <div class="form-check-inline">
+                    <input type="checkbox" id="image-<%=i%>" name="deleteImages[]" value="<%=img.filename%>">
+                </div>
+                <label for="image-<%=i%>">Delete?</label>
+                <% })%>
+            </div>
+
+             <div class="mb-3">
+             <button class="btn btn-info">Update Mountain</button>
+             </div>
+         </form>
+
+        </div>
+     </div>
+
+     <a href="/skis/<%=ski._id%>">Back to mountain</a>
+     <a href="/skis">Back to all mountains</a>
